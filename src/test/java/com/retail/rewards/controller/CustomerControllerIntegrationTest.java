@@ -22,7 +22,7 @@ public class CustomerControllerIntegrationTest {
 	public void getRewardsForCustomer() throws Exception 
 	{
 	  mvc.perform( MockMvcRequestBuilders
-	      .get("/rewards/12345")
+	      .get("/rewards/12345/rewardPoints")
 	      .accept(MediaType.APPLICATION_JSON))
 	      .andDo(print())
 	      .andExpect(status().isOk())
@@ -34,7 +34,7 @@ public class CustomerControllerIntegrationTest {
 	public void getRewardsForCustomerNotExists() throws Exception 
 	{
 	  mvc.perform( MockMvcRequestBuilders
-	      .get("/rewards/12348")
+	      .get("/rewards/12348/rewardPoints")
 	      .accept(MediaType.APPLICATION_JSON))
 	      .andDo(print())
 	      .andExpect(status().isBadRequest())

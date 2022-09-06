@@ -28,10 +28,14 @@ public class CustomerControllerTest {
 	@Test
 	void testCalculateRewards() {
 		ConcurrentHashMap<String, String> customerMonthlyRewards= new ConcurrentHashMap<>();
-		Mockito.when(customerService.caclulateRewards(Mockito.anyInt())).thenReturn(customerMonthlyRewards);
-		CustomerResponse customerResponse= customerController.calculateRewards(12345);
-		log.debug("customerResponse.getCustomerId() in test class :"+customerResponse.getCustomerId());
-		assertTrue(customerResponse.getCustomerId() == 12345);
+		customerMonthlyRewards.put("Aug", "23");
+		CustomerResponse customerResponse = new CustomerResponse();
+		customerResponse.setCustomerId(12345);
+		customerResponse.setPerMonthRewards(customerMonthlyRewards);
+		Mockito.when(customerService.getRewards(Mockito.anyInt())).thenReturn(customerResponse);
+		CustomerResponse customerResponseActual= customerController.calculateRewards(12345);
+		log.debug("customerResponse.getCustomerId() in test class :"+customerResponseActual.getCustomerId());
+		assertTrue(customerResponseActual.getCustomerId() == 12345);
 	}
 
 }

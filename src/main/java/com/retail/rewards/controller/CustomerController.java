@@ -19,16 +19,8 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 
-	@RequestMapping("/{customerId}")
-	public CustomerResponse calculateRewards(@PathVariable int customerId) {
-		CustomerResponse CustomerResponse = new CustomerResponse();
-		ConcurrentHashMap<String, String> customerMonthlyRewards= customerService.caclulateRewards(customerId);
-		if(customerMonthlyRewards.isEmpty()) {
-			throw new CustomerNotFoundException();
-		}
-		CustomerResponse.setCustomerId(customerId);
-		CustomerResponse.setPerMonthRewards(customerMonthlyRewards);
-		log.debug("CustomerResponse :"+CustomerResponse);
-		return CustomerResponse;
+	@RequestMapping("/{customerId}/rewardPoints")
+	public CustomerResponse calculateRewards(@PathVariable int customerId) {		
+		return customerService.getRewards(customerId);
 	}
 }

@@ -2,6 +2,7 @@ package com.retail.rewards.service;
 
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +35,20 @@ class CustomerServiceTest {
 		ConcurrentHashMap<String, String> rewardsPerMonth = customerService.caclulateRewards(12345);
 		log.debug("rewardsPerMonth in test class :"+rewardsPerMonth);
 		assertTrue(rewardsPerMonth != null);
+	}
+	
+	@Test
+	public void testComputeRewards() {
+		Double rewardsAmount = 0d;
+		rewardsAmount =customerService.computeRewards(55);
+		assertTrue(rewardsAmount != null);
+		assertTrue(rewardsAmount.doubleValue() == 50.0);
+		rewardsAmount =customerService.computeRewards(25);
+		assertTrue(rewardsAmount != null);
+		assertTrue(rewardsAmount.doubleValue() == 0.0);
+		rewardsAmount =customerService.computeRewards(120);
+		assertTrue(rewardsAmount != null);
+		assertTrue(rewardsAmount.doubleValue() == 90.0);
 	}
 	
 	private List<CustTransaction> buidTestData(int id) {

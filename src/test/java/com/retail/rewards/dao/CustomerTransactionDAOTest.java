@@ -1,5 +1,7 @@
 package com.retail.rewards.dao;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,8 @@ class CustomerTransactionDAOTest {
 		dao.init();
 		List<CustTransaction> customersData = dao.getCustomerData(12345);
 		log.debug("customersData in test class: "+customersData);
+		assertTrue(customersData != null);
+		assertTrue(customersData.size() == 9);
 	}
 
 }
