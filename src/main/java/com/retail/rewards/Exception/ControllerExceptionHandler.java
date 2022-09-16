@@ -15,24 +15,23 @@ import com.retail.rewards.model.ErrorResponse;
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
-	@ExceptionHandler({CustomerNotFoundException.class})
+	@ExceptionHandler({ CustomerNotFoundException.class })
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ResponseEntity<ErrorResponse> resourceNotFoundException(CustomerNotFoundException ex, WebRequest request) {
 		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setErrorMessage("Customer not found");
+		errorResponse.setErrorMessage("Customer Id is not existing. Not valid data.");
 		errorResponse.setStatus(HttpStatus.BAD_REQUEST);
-		return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
-	
-	@ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handle(Exception ex, 
-    		HttpServletRequest request, HttpServletResponse response) {
 
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorResponse> handle(Exception ex, HttpServletRequest request,
+			HttpServletResponse response) {
 		ErrorResponse errorResponse = new ErrorResponse();
 		errorResponse.setErrorMessage("Internal Server Error");
 		errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
-		return new ResponseEntity<>(errorResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 }

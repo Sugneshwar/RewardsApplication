@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 public class ErrorResponse {
-	String errorMessage;
-	HttpStatus status;
-	
+	private String errorMessage;
+	private HttpStatus status;
 }

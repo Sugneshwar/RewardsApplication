@@ -1,11 +1,11 @@
 package com.retail.rewards.model;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
 
 import lombok.Data;
 
 @Data
 public class CustomerResponse {
-	int customerId;
-	ConcurrentHashMap<String, String> perMonthRewards;
+	private int customerId;
+	private Map<String, String> perMonthRewards;
 }

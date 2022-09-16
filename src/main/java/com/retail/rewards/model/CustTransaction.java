@@ -6,10 +6,9 @@ import lombok.Data;
 
 @Data
 public class CustTransaction {
-	
-	int customerId;
-	double transactionAmount;
-	Date transactionDate;
-	
+
+	private int customerId;
+	private double transactionAmount;
+	private Date transactionDate;
 
 }

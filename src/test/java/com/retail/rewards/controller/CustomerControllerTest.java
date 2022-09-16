@@ -33,9 +33,11 @@ public class CustomerControllerTest {
 		customerResponse.setCustomerId(12345);
 		customerResponse.setPerMonthRewards(customerMonthlyRewards);
 		Mockito.when(customerService.getRewards(Mockito.anyInt())).thenReturn(customerResponse);
+		log.debug("customerResponse.getPerMonthRewards() in test class :"+customerResponse.getPerMonthRewards());
 		CustomerResponse customerResponseActual= customerController.calculateRewards(12345);
 		log.debug("customerResponse.getCustomerId() in test class :"+customerResponseActual.getCustomerId());
 		assertTrue(customerResponseActual.getCustomerId() == 12345);
+		Mockito.verify(customerService).getRewards(12345);
 	}
 
 }

@@ -1,24 +1,21 @@
 package com.retail.rewards.service;
 
 import static org.junit.Assert.assertTrue;
-
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-
 import com.retail.rewards.dao.CustomerTransactionDAO;
 import com.retail.rewards.model.CustTransaction;
-
+import com.retail.rewards.model.CustomerResponse;
 import lombok.extern.slf4j.Slf4j;
+
 @SpringJUnitConfig
 @Slf4j
 class CustomerServiceTest {
@@ -28,29 +25,16 @@ class CustomerServiceTest {
 	@Mock
 	CustomerTransactionDAO customerDao;
 
-	@Test
-	void testCaclulateRewards() {
+	@Test 
+	public void testGetRewards() {
 		List<CustTransaction> customerData = buidTestData(12345);
 		Mockito.when(customerDao.getCustomerData(Mockito.anyInt())).thenReturn(customerData);
-		ConcurrentHashMap<String, String> rewardsPerMonth = customerService.caclulateRewards(12345);
-		log.debug("rewardsPerMonth in test class :"+rewardsPerMonth);
-		assertTrue(rewardsPerMonth != null);
+		CustomerResponse response = customerService.getRewards(12345);
+		log.debug("response in test class :"+response);
+		assertTrue(response != null);
+		Mockito.verify(customerDao).getCustomerData(12345);
 	}
-	
-	@Test
-	public void testComputeRewards() {
-		Double rewardsAmount = 0d;
-		rewardsAmount =customerService.computeRewards(55);
-		assertTrue(rewardsAmount != null);
-		assertTrue(rewardsAmount.doubleValue() == 50.0);
-		rewardsAmount =customerService.computeRewards(25);
-		assertTrue(rewardsAmount != null);
-		assertTrue(rewardsAmount.doubleValue() == 0.0);
-		rewardsAmount =customerService.computeRewards(120);
-		assertTrue(rewardsAmount != null);
-		assertTrue(rewardsAmount.doubleValue() == 90.0);
-	}
-	
+		
 	private List<CustTransaction> buidTestData(int id) {
 		ConcurrentHashMap<Integer, List<CustTransaction>> data = new ConcurrentHashMap<>();
 		data.put(id, new ArrayList<>());
